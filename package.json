@@ -1,0 +1,32 @@
+{
+  "name": "edatalia-signing-server",
+  "version": "1.0.0",
+  "description": "Servidor HTTPS para firma digital con Edatalia WebSign",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "edatalia",
+    "digital-signature",
+    "react-native",
+    "webview",
+    "https"
+  ],
+  "author": "Tu nombre",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "dotenv": "^16.3.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
