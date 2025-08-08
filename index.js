@@ -69,26 +69,56 @@ function generateSigningHTML() {
             viewPDF: true,
           };
 
-          const base64 = "${defaultDocument}"
+          console.log('Initializing WebSign component...');
+          const base64 = "${defaultDocument}";
+          
           fetch(base64)
-            .then(res => res.blob())
+            .then(res => {
+              console.log('PDF fetch response status:', res.status);
+              return res.blob();
+            })
             .then(blob => {
+              console.log('PDF blob created, size:', blob.size);
               const file = new File([blob], "documento.pdf", {
                 type: "application/pdf",
                 lastModified: new Date().getTime(),
               });
-              const webSign =  new WebSign(file, config, function(event) {
-               
-                //SIGNED
-		            // ENDPOINT b64 nuevo > RUTA
-                console.log('FILE', file)
-                console.log('WEB SIGN', webSign)
-
-
-                // transformar el base64
-                //agregar logica para volver a subir el archivo
-
+              console.log('File object created:', file.name, file.size, file.type);
+              const webSign = new WebSign(file, config, function(event) {
+                console.log('WebSign callback triggered:', event);
+                
+                // Enviar mensaje al WebView de React Native
+                if (window.ReactNativeWebView) {
+                  window.ReactNativeWebView.postMessage(JSON.stringify({
+                    type: 'signed',
+                    data: {
+                      event: event,
+                      file: {
+                        name: file.name,
+                        size: file.size,
+                        type: file.type
+                      },
+                      timestamp: new Date().toISOString()
+                    }
+                  }));
+                  console.log('Message sent to React Native WebView');
+                } else {
+                  console.error('ReactNativeWebView not available');
+                }
+                
+                console.log('FILE', file);
+                console.log('WEB SIGN', webSign);
               });
+            })
+            .catch(error => {
+              console.error('Error creating WebSign:', error);
+              if (window.ReactNativeWebView) {
+                window.ReactNativeWebView.postMessage(JSON.stringify({
+                  type: 'error',
+                  error: 'Failed to initialize WebSign: ' + error.message
+                }));
+              }
+            });
             });
         </script>
       </body>
