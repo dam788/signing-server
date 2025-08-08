@@ -128,38 +128,9 @@ function generateHTMLConfig(bearerToken, documentUrl) {
   }
 }
 
-function createLogger() {
-  const log = {
-    info: (message, meta = {}) => {
-      if (config.logging.enableConsole) {
-        console.log(`[INFO] ${new Date().toISOString()} - ${message}`, meta)
-      }
-    },
-    error: (message, error = {}) => {
-      if (config.logging.enableConsole) {
-        console.error(`[ERROR] ${new Date().toISOString()} - ${message}`, error)
-      }
-    },
-    warn: (message, meta = {}) => {
-      if (config.logging.enableConsole) {
-        console.warn(`[WARN] ${new Date().toISOString()} - ${message}`, meta)
-      }
-    },
-    debug: (message, meta = {}) => {
-      if (config.server.env === 'development' && config.logging.enableConsole) {
-        console.log(`[DEBUG] ${new Date().toISOString()} - ${message}`, meta)
-      }
-    }
-  }
-  
-  return log
-}
-
 module.exports = {
   config,
   validateConfig,
   getEnvConfig,
   generateHTMLConfig,
-  processDocumentForEdatalia,
-  createLogger
 }
