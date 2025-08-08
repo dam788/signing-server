@@ -20,7 +20,7 @@ app.get('/sign', (req, res) => {
   const { documentUrl } = req.query;
 
   // Obtener bearer token desde variables de entorno
-  const bearerToken = process.env.EDATALIA_BEARER_TOKEN;
+  // const bearerToken = process.env.EDATALIA_BEARER_TOKEN;
   
   // Validaciones básicas
   if (!bearerToken) {
@@ -137,13 +137,16 @@ function generateSigningHTML(bearerToken) {
       <h3>Error al cargar la firma</h3>
       <p id="error-message"></p>
     </div>
-    <div id="web-sign"></div>
+    <div>
+    hola
+      <div id="web-sign"></div>
+    </div>  
     <script>
       try {
         console.log('Inicializando Edatalia WebSign...');
         
         const config = {
-          bearerToken: "${bearerToken}",
+          bearerToken: "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQ3VzdG9tZXIiLCJDdXN0b21lcklkIjo1LCJUb2tlbklkIjo0MCwiYXVkIjoiZWRhdGFsaWEgZGF0YSBzb2x1dGlvbnMgcy5sLiIsIm5iZiI6MTc1NDU4MTI4NCwiZXhwIjoxNzU5MTkwNDAwLCJpYXQiOjE3NTQ1ODEyODQsImlzcyI6ImVkYXRhbGlhIGRhdGEgc29sdXRpb25zIHMubC4ifQ.IyGRrP3U1JhhPSivcVJuOvbdi2Llw0HBmczY6J8lvOP6_qtRI1tAVlhr5AMc35e_guAGHdvqP08LBBqlxoAC_Q",
           viewPDF: true,
           container: "#web-sign"
         };
