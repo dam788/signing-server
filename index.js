@@ -119,7 +119,6 @@ function generateSigningHTML() {
                 }));
               }
             });
-            });
         </script>
       </body>
     </html>
