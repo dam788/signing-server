@@ -89,19 +89,41 @@ function generateSigningHTML() {
                 
                 // Enviar mensaje al WebView de React Native
                 if (window.ReactNativeWebView) {
-                  window.ReactNativeWebView.postMessage(JSON.stringify({
-                    type: 'signed',
-                    data: {
-                      event: event,
-                      file: {
-                        name: file.name,
-                        size: file.size,
-                        type: file.type
-                      },
-                      timestamp: new Date().toISOString()
-                    }
-                  }));
-                  console.log('Message sent to React Native WebView');
+                  // Solo enviar evento 'signed' cuando el documento esté realmente firmado
+                  if (event.status === 'signed' || event.type === 'signed') {
+                    // Obtener el archivo firmado desde webSign
+                    const signedFile = webSign.getSignedFile ? webSign.getSignedFile() : null;
+                    
+                    window.ReactNativeWebView.postMessage(JSON.stringify({
+                      type: 'signed',
+                      data: {
+                        event: event,
+                        file: {
+                          name: file.name,
+                          size: file.size,
+                          type: file.type
+                        },
+                        signedFile: signedFile ? {
+                          name: signedFile.name || file.name,
+                          size: signedFile.size,
+                          type: signedFile.type,
+                          data: signedFile
+                        } : null,
+                        timestamp: new Date().toISOString()
+                      }
+                    }));
+                    console.log('Signed event sent to React Native WebView');
+                  } else {
+                    // Enviar otros eventos (progress, error, etc.)
+                    window.ReactNativeWebView.postMessage(JSON.stringify({
+                      type: event.type || event.status || 'event',
+                      data: {
+                        event: event,
+                        timestamp: new Date().toISOString()
+                      }
+                    }));
+                    console.log('Event sent to React Native WebView:', event.type || event.status);
+                  }
                 } else {
                   console.error('ReactNativeWebView not available');
                 }
