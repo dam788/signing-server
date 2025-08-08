@@ -64,7 +64,9 @@ function generateSigningHTML() {
         <script>
           const config = {
             bearerToken: "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQ3VzdG9tZXIiLCJDdXN0b21lcklkIjo1LCJUb2tlbklkIjo0MCwiYXVkIjoiZWRhdGFsaWEgZGF0YSBzb2x1dGlvbnMgcy5sLiIsIm5iZiI6MTc1NDU4MTI4NCwiZXhwIjoxNzU5MTkwNDAwLCJpYXQiOjE3NTQ1ODEyODQsImlzcyI6ImVkYXRhbGlhIGRhdGEgc29sdXRpb25zIHMubC4ifQ.IyGRrP3U1JhhPSivcVJuOvbdi2Llw0HBmczY6J8lvOP6_qtRI1tAVlhr5AMc35e_guAGHdvqP08LBBqlxoAC_Q",
-            viewPDF: true
+            viewPDF: true,
+            signatureType: 'auto',
+            viewPDF: true,
           };
 
           const base64 = "${defaultDocument}"
