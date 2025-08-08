@@ -138,9 +138,9 @@ function generateSigningHTML() {
       <p id="error-message"></p>
     </div>
     <div>
-    hola
-      <div id="web-sign"></div>
-    </div>  
+
+    <div id="web-sign"></div>
+
     <script>
       try {
         console.log('Inicializando Edatalia WebSign...');
